@@ -9,23 +9,33 @@
           p:host-name="${redis.ip}" p:port="${redis.port}" p:use-pool="true"/>
 
     <bean id="redisStringRedisSerializer"
-          class="com.h13.pair.cache.service.FastJsonRedisSerializer">
+          class="com.h13.che.cache.service.FastJsonRedisSerializer">
         <constructor-arg type="java.lang.Class" value="java.lang.String"/>
     </bean>
 
     <bean id="redisLongRedisSerializer"
-          class="com.h13.pair.cache.service.FastJsonRedisSerializer">
+          class="com.h13.che.cache.service.FastJsonRedisSerializer">
         <constructor-arg type="java.lang.Class" value="java.lang.Long"/>
     </bean>
 
-    <!-- pairCOTemplate -->
+    <!-- message -->
     <bean id="messageSerializer"
-          class="com.h13.pair.cache.service.FastJsonRedisSerializer">
-        <constructor-arg type="java.lang.Class" value="com.h13.pair.cache.co.MessageCO"/>
+          class="com.h13.che.cache.service.FastJsonRedisSerializer">
+        <constructor-arg type="java.lang.Class" value="com.h13.che.cache.co.MessageCO"/>
     </bean>
     <bean id="messageCOTemplate" class="org.springframework.data.redis.core.RedisTemplate"
           p:connection-factory-ref="jedisConnectionFactory" p:keySerializer-ref="redisStringRedisSerializer"
           p:valueSerializer-ref="messageSerializer">
+    </bean>
+
+    <!-- comment -->
+    <bean id="commentSerializer"
+          class="com.h13.che.cache.service.FastJsonRedisSerializer">
+        <constructor-arg type="java.lang.Class" value="com.h13.che.cache.co.CommentCO"/>
+    </bean>
+    <bean id="commentCOTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+          p:connection-factory-ref="jedisConnectionFactory" p:keySerializer-ref="redisStringRedisSerializer"
+          p:valueSerializer-ref="commentSerializer">
     </bean>
 
 </beans>

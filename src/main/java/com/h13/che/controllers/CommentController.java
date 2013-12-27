@@ -1,50 +1,49 @@
 package com.h13.che.controllers;
 
-import com.h13.che.cache.co.MessageCO;
+import com.h13.che.cache.co.CommentCO;
 import com.h13.che.config.Constants;
-import com.h13.che.services.MessageService;
+import com.h13.che.services.CommentService;
 import com.h13.che.utils.DTOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
  * User: sunbo
  * Date: 13-12-17
- * Time: 下午1:44
+ * Time: 下午4:03
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/message")
-public class MessageController {
+@RequestMapping("/comment")
+public class CommentController {
 
     @Autowired
-    MessageService messageService;
+    CommentService commentService;
 
     @RequestMapping("/send")
-    @ResponseBody
     public String send(HttpServletRequest request, HttpServletResponse response) {
         String uid = request.getParameter("uid");
         String content = request.getParameter("content");
-        messageService.send(uid, content);
+        long mid = new Long(request.getParameter("mid"));
+
+        commentService.add(uid, mid, content);
+
         return DTOUtils.getOriginalResponse(request, response, uid, Constants.DEFAULT_TO_SESSION_ID);
-
     }
 
-    @RequestMapping("/")
-    @ResponseBody
-    public String index(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping("/list")
+    public String list(HttpServletRequest request, HttpServletResponse response) {
         String uid = request.getParameter("uid");
-        MessageCO message = messageService.get(uid);
-        return DTOUtils.getSucessResponse(request, response, uid, Constants.DEFAULT_TO_SESSION_ID, message);
+        long mid = new Long(request.getParameter("mid"));
+        List<CommentCO> list = commentService.get(uid, mid);
+        return DTOUtils.getSucessResponse(request, response, uid, Constants.DEFAULT_TO_SESSION_ID, list);
     }
-
-
 
 
 

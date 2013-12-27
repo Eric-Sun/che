@@ -23,8 +23,9 @@ public class MessageService {
     MessageCache messageCache;
 
     public void send(String uid, String content) {
-        messageDAO.add(uid, content);
+        long mid = messageDAO.add(uid, content);
         MessageCO messageCO = new MessageCO();
+        messageCO.setId(mid);
         messageCO.setContent(content);
         messageCO.setUid(uid);
         messageCO.setTs(System.currentTimeMillis());
