@@ -28,6 +28,13 @@
           p:valueSerializer-ref="messageSerializer">
     </bean>
 
+    <!-- message -->
+    <bean id="dashboardTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+          p:connection-factory-ref="jedisConnectionFactory" p:keySerializer-ref="redisStringRedisSerializer"
+          p:valueSerializer-ref="messageSerializer">
+    </bean>
+
+
     <!-- comment -->
     <bean id="commentSerializer"
           class="com.h13.che.cache.service.FastJsonRedisSerializer">

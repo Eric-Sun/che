@@ -1,10 +1,13 @@
 package com.h13.che.services;
 
 import com.h13.che.cache.co.MessageCO;
+import com.h13.che.cache.service.DashboardCache;
 import com.h13.che.cache.service.MessageCache;
 import com.h13.che.daos.MessageDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,8 +24,10 @@ public class MessageService {
 
     @Autowired
     MessageCache messageCache;
+    @Autowired
+    DashboardCache dashboardCache;
 
-    public void send(String uid, String content) {
+    public long send(String uid, String content) {
         long mid = messageDAO.add(uid, content);
         MessageCO messageCO = new MessageCO();
         messageCO.setId(mid);
@@ -30,11 +35,13 @@ public class MessageService {
         messageCO.setUid(uid);
         messageCO.setTs(System.currentTimeMillis());
         messageCache.put(messageCO);
+        dashboardCache.put(messageCO);
+        return mid;
     }
 
-    public MessageCO get(String uid) {
-        MessageCO co = messageCache.get(uid);
-        return co;
+    public List<MessageCO> fetchAll(int pageNum, int sizePerPage) {
+        List<MessageCO> list = dashboardCache.get();
+        return list.subList(0, (pageNum - 1) * sizePerPage);
     }
 }
 

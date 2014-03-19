@@ -1,4 +1,4 @@
-package com.h13.pair.cache.service;
+package com.h13.che.cache.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

@@ -1,18 +1,5 @@
-http://localhost:8080/message/send?sessionId=1385696429079&toSessionId=1385696430202&c=aaaa
-http://localhost:8080/message/receive?sessionId=1385696430202&toSessionId=1385696429079
-
-
-
-http://localhost:8080/session/create
-
-
-s1: 1385696429079
-s2: 1385696430202
-
-
-http://localhost:8080/session/close?sessionId=1385578086818&toSessionId=1385646249535
-
-
-
-
+需要登录
+每天说话只能说3次，3次以上需要回复别人的，或者捧他，或者抽他
+回复、捧他或者抽他每15分钟一次
+邀请了一个人之后每天可以多获得一次说话机会
 

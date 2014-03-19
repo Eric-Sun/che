@@ -1,9 +1,7 @@
 package com.h13.che.controllers;
 
 import com.h13.che.cache.co.CommentCO;
-import com.h13.che.config.Constants;
 import com.h13.che.services.CommentService;
-import com.h13.che.utils.DTOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +32,8 @@ public class CommentController {
 
         commentService.add(uid, mid, content);
 
-        return DTOUtils.getOriginalResponse(request, response, uid, Constants.DEFAULT_TO_SESSION_ID);
+//        return DTOUtils.getOriginalResponse(request, response, uid, Constants.DEFAULT_TO_SESSION_ID);
+        return null;
     }
 
     @RequestMapping("/list")
@@ -42,7 +41,8 @@ public class CommentController {
         String uid = request.getParameter("uid");
         long mid = new Long(request.getParameter("mid"));
         List<CommentCO> list = commentService.get(uid, mid);
-        return DTOUtils.getSucessResponse(request, response, uid, Constants.DEFAULT_TO_SESSION_ID, list);
+//        return DTOUtils.getSucessResponse(request, response, uid, Constants.DEFAULT_TO_SESSION_ID, list);
+        return null;
     }
 
 
